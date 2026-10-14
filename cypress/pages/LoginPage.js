@@ -16,7 +16,7 @@ class LoginPage {
     }
 
     fillPassword(password) {
-        cy.get(this.locators.passwordInput).type(password);
+        cy.get(this.locators.passwordInput).type(password, {log: false});
 
     }
 
