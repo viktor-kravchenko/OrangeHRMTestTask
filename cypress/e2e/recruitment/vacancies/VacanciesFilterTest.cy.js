@@ -11,49 +11,76 @@ describe('Vacancies filter tests', () => {
     LoginPage.loginWithCorrectCredentials()
   });
 
-  it('filter by vacancy - Payroll Administrator', () => {
-    const vacancy = 'Payroll Administrator';
-
-    NavigationPanel.clickTab(tabNames.RECRUITMENT);  
+  it('filter by vacancy', () => {
+    NavigationPanel.clickTab(tabNames.RECRUITMENT);
     VacanciesPage.clickVacanciesTab();
     VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.selectVacancy(vacancy);
-    VacanciesPage.clickSearchButton();
+
+    cy.get(VacanciesPage.locators.vacancyNameColumn).then(($cells) => {
+      const valid = $cells.filter(':not(:contains("Deleted"))');
+      if (valid.length === 0) throw new Error('No vacancy names found for validation');
+      const value = valid.first().text().trim();
+
+      VacanciesPage.selectVacancy(value);
+      VacanciesPage.clickSearchButton();
+      VacanciesPage.waitForFiltersFormToLoad();
+      Wait.forTableLoaderToDisappear();
+      VacanciesPage.validateSearchResults({ vacancyName: value });
+    });
+  })
+
+  it('filter by job title', () => {
+    NavigationPanel.clickTab(tabNames.RECRUITMENT);
+    VacanciesPage.clickVacanciesTab();
     VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ vacancyName: vacancy });
+
+    cy.get(VacanciesPage.locators.jobTitleColumn).then(($cells) => {
+      const valid = $cells.filter(':not(:contains("Deleted"))');
+      if (valid.length === 0) throw new Error('No job titles found for validation');
+      const value = valid.first().text().trim();
+
+      VacanciesPage.selectJobTitle(value);
+      VacanciesPage.clickSearchButton();
+      Wait.forTableLoaderToDisappear();
+      VacanciesPage.validateSearchResults({ jobTitle: value });
+    });
   })
 
-  it('filter by job title - Account Assistant', () => {
-    const jobTitle = 'Account Assistant';
-
+  it('filter by hiring manager', () => {
     NavigationPanel.clickTab(tabNames.RECRUITMENT);
     VacanciesPage.clickVacanciesTab();
-    VacanciesPage.selectJobTitle('Account Assistant');
-    VacanciesPage.clickSearchButton();
+    VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ jobTitle: jobTitle });
+
+    cy.get(VacanciesPage.locators.HiringManagerNameColumn).then(($cells) => {
+      const valid = $cells.filter(':not(:contains("Deleted"))');
+      if (valid.length === 0) throw new Error('No hiring managers found for validation');
+      const value = valid.first().text().trim();
+
+      VacanciesPage.selectHiringManager(value);
+      VacanciesPage.clickSearchButton();
+      Wait.forTableLoaderToDisappear();
+      VacanciesPage.validateSearchResults({ managerName: value });
+    });
   })
 
-  it('filter by hiring manager - Rahul Patil', () => {
-    const hiringManager = 'Rahul Patil'
+  it('filter by status', () => {
     NavigationPanel.clickTab(tabNames.RECRUITMENT);
     VacanciesPage.clickVacanciesTab();
-    VacanciesPage.selectHiringManager(hiringManager);
-    VacanciesPage.clickSearchButton();
+    VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ managerName: hiringManager });
-  })
 
-  it('filter by status - Active', () => {
-    const status = 'Active'
+    cy.get(VacanciesPage.locators.statusColumn).then(($cells) => {
+      const valid = $cells.filter(':not(:contains("Deleted"))');
+      if (valid.length === 0) throw new Error('No status values found for validation');
+      const value = valid.first().text().trim();
 
-    NavigationPanel.clickTab(tabNames.RECRUITMENT);
-    VacanciesPage.clickVacanciesTab();
-    VacanciesPage.selectStatus(status);
-    VacanciesPage.clickSearchButton();
-    Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ status: status });
+      VacanciesPage.selectStatus(value);
+      VacanciesPage.clickSearchButton();
+      Wait.forTableLoaderToDisappear();
+      VacanciesPage.validateSearchResults({ status: value });
+    });
   })
 })
