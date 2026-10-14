@@ -51,26 +51,30 @@ class VacanciesPage extends RecruitmentHeader {
     }
 
     validateSearchResults({jobTitle='', vacancyName='', managerName='', status=''}){
-        if (vacancyName) {
-            cy.get(this.locators.vacancyNameColumn).each(($el) => {
-                cy.wrap($el).should('have.text', vacancyName);
-            });
-        }
-        if (jobTitle) {
-            cy.get(this.locators.jobTitleColumn).each(($el) => {
-                cy.wrap($el).should('have.text', jobTitle);
-            });
-        }
-        if (managerName) {
-            cy.get(this.locators.HiringManagerNameColumn).each(($el) => {
-                cy.wrap($el).should('have.text', managerName);
-            });
-        }
-        if (status) {
-            cy.get(this.locators.statusColumn).each(($el) => {
-                cy.wrap($el).should('have.text', status);
-            });
-        }
+        cy.get(this.locators.tableRow).then(($rows) => {
+            if ($rows.length === 0) return;
+
+            if (vacancyName) {
+                cy.get(this.locators.vacancyNameColumn).each(($el) => {
+                    cy.wrap($el).should('have.text', vacancyName);
+                });
+            }
+            if (jobTitle) {
+                cy.get(this.locators.jobTitleColumn).each(($el) => {
+                    cy.wrap($el).should('have.text', jobTitle);
+                });
+            }
+            if (managerName) {
+                cy.get(this.locators.HiringManagerNameColumn).each(($el) => {
+                    cy.wrap($el).should('have.text', managerName);
+                });
+            }
+            if (status) {
+                cy.get(this.locators.statusColumn).each(($el) => {
+                    cy.wrap($el).should('have.text', status);
+                });
+            }
+        });
     }
 }
 
