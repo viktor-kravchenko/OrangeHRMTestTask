@@ -2,6 +2,10 @@
 
 E2E test suite for [OrangeHRM](https://opensource-demo.orangehrmlive.com) using Cypress 16 with the Page Object Model pattern.
 
+## Prerequisites
+
+- Node.js >= 18
+- npm
 
 ## Installation
 ```bash
@@ -21,7 +25,7 @@ npm test
 npx cypress open
 ```
 
-### Run a single test file
+### Run a single test file (example)
 
 ```bash
 npx cypress run --spec "cypress/e2e/login/login.cy.js"
@@ -78,13 +82,6 @@ cypress/
     └── commands.js
 ```
 
-## Prerequisites
-
-- Node.js >= 18
-- npm
-
-
-
 ## Configuration
 
 Create `.env` in the project root:
@@ -97,21 +94,8 @@ TEST_PASSWORD=
 
 The file is loaded automatically by `cypress.config.js` via dotenv
 
-## Usage
 
-### Run all tests (headless)
-
-```bash
-npm test
-```
-
-### Open Cypress runner (interactive)
-
-```bash
-npx cypress open
-```
-
-### Run a single test file
+### Run a single test file (spec name)
 
 ```bash
 npx cypress run --spec "cypress/e2e/login/login.cy.js"
