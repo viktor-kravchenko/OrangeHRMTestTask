@@ -4,7 +4,6 @@ class Element {
 
     static get({ parentSelector = '', parentText = '', selector = '', text = '' }) {
         //No parent element is used for search
-        logger.logMethodArgs("get", {parentSelector, parentText, selector, text})
         const hasParent = parentSelector !== '' || parentText !== '';
         const hasParentText = parentText !== '';
         const hasText = text !== '';

@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import LoginPage from '../../pages/LoginPage';
 import NavigationPanel from '../../pages/components/NavigationPanel';
 import MyInfoPage from '../../pages/MyInfo/MyInfoPage';
@@ -13,24 +14,27 @@ describe('My Info attachment tests', () => {
   });
 
   it('add, download, and delete attachment', () => {
+    const comment = faker.lorem.sentence();
+    const filename = 'test.txt';
+
     NavigationPanel.clickTab("My Info");
 
     MyInfoPage.clickAddAttachmentButton();
     MyInfoPage.addAttachment('cypress/fixtures/test.txt');
-    MyInfoPage.fillAttachmentComment("Test comment");
-    MyInfoPage.waitForFileToBeAttached('test.txt')
+    MyInfoPage.fillAttachmentComment(comment);
+    MyInfoPage.waitForFileToBeAttached(filename)
     MyInfoPage.clickSaveAttachmentButton();
 
     Wait.forTableLoaderToDisappear();
-    MyInfoPage.validateAttachmentIsVisibleInTable('test.txt', 'Test comment', 'text/plain');
+    MyInfoPage.validateAttachmentIsVisibleInTable(filename, comment, 'text/plain');
 
-    MyInfoPage.downloadAttachment('test.txt');
+    MyInfoPage.downloadAttachment(filename);
     FileUtil.compareFiles('cypress/fixtures/test.txt', 'cypress/downloads/test.txt');
 
-    MyInfoPage.deleteAttachment('test.txt');
+    MyInfoPage.deleteAttachment(filename);
     
     DeleteRecordPopup.confirmDelete();
     Wait.forTableLoaderToDisappear();
-    MyInfoPage.validateAttachmentNotExistInTable('test.txt');
+    MyInfoPage.validateAttachmentNotExistInTable(filename);
   })
 })

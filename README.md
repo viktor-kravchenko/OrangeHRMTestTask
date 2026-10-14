@@ -11,6 +11,19 @@ E2E test suite for [OrangeHRM](https://opensource-demo.orangehrmlive.com) using 
 ```bash
 npm install
 ```
+
+## Configuration
+
+Create `.env` in the project root:
+
+```env
+BASE_URL=
+TEST_USERNAME=
+TEST_PASSWORD=
+```
+
+The file is loaded automatically by `cypress.config.js` via dotenv
+
 ## Usage
 
 ### Run all tests (headless)
@@ -80,25 +93,6 @@ cypress/
 └── support/
     ├── e2e.js
     └── commands.js
-```
-
-## Configuration
-
-Create `.env` in the project root:
-
-```env
-BASE_URL=
-TEST_USERNAME=
-TEST_PASSWORD=
-```
-
-The file is loaded automatically by `cypress.config.js` via dotenv
-
-
-### Run a single test file (spec name)
-
-```bash
-npx cypress run --spec "cypress/e2e/login/login.cy.js"
 ```
 
 ## Tests

@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import LoginPage from '../../../pages/LoginPage';
 import NavigationPanel from '../../../pages/components/NavigationPanel';
 import AllUsersWidget from '../../../pages/admin/UserManagement/AllUsersWidget';
@@ -12,30 +13,39 @@ describe('Create useser tests', () => {
   });
 
   it('createUser', () => {
+    const username = faker.internet.username();
+    const password = faker.internet.password();
+
+    //employee with this name might not be found due to site data updates.
+    //If employee name cannot be found - change it to new valid employee name
+    const employeeName = 'Rahul Das';
+    const employeeNameInTable = 'Rahul Das';
+    const status = 'Enabled'
+
     LoginPage.loginWithCorrectCredentials()
     NavigationPanel.clickTab("Admin");
     AllUsersWidget.clickAddUserButton();
     AddUserPage.waitForformToLoad();
-    AddUserPage.fillEmployeeName("Rahul Kumar Patel");
+    AddUserPage.fillEmployeeName(employeeName);
     AddUserPage.selectUserRole("Admin");
-    AddUserPage.selectUserStatus("Enabled");
-    AddUserPage.fillUserName("Testeee");
-    AddUserPage.fillPassword("123456q");
-    AddUserPage.fillConfirmPassword("123456q");
+    AddUserPage.selectUserStatus(status);
+    AddUserPage.fillUserName(username);
+    AddUserPage.fillPassword(password);
+    AddUserPage.fillConfirmPassword(password);
     AddUserPage.clickSaveButton();
     AllUsersWidget.waitForAnyTableRowToLoad();
-    AllUsersWidget.validateUserInTable("Testeee", "Admin", "Rahul Patel", "Enabled");
+    AllUsersWidget.validateUserInTable(username, "Admin", employeeNameInTable, status);
 
-    AllUsersWidget.clickEditUser("Testeee")
+    AllUsersWidget.clickEditUser(username)
     AddUserPage.waitForformToLoad();
     EditUserPage.selectUserRole("ESS")
     EditUserPage.clickSaveButton()
 
     AllUsersWidget.waitForAnyTableRowToLoad();
-    AllUsersWidget.validateUserInTable("Testeee", "ESS", "Rahul Patel", "Enabled");
-    AllUsersWidget.clickDeleteUser("Testeee");
+    AllUsersWidget.validateUserInTable(username, "ESS", employeeNameInTable, status);
+    AllUsersWidget.clickDeleteUser(username);
     DeleteRecordPopup.confirmDelete();
     AllUsersWidget.waitForAnyTableRowToLoad();
-    AllUsersWidget.validateUserDoesntExistInTable("Testeee")
+    AllUsersWidget.validateUserDoesntExistInTable(username)
   })
 })

@@ -11,42 +11,48 @@ describe('Vacancies filter tests', () => {
   });
 
   it('filter by vacancy - Payroll Administrator', () => {
-    NavigationPanel.clickTab('Recruitment');
+    const vacancy = 'Payroll Administrator';
+
+    NavigationPanel.clickTab('Recruitment');  
     VacanciesPage.clickVacanciesTab();
     VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.selectVacancy('Payroll Administrator');
+    VacanciesPage.selectVacancy(vacancy);
     VacanciesPage.clickSearchButton();
     VacanciesPage.waitForFiltersFormToLoad();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ vacancyName: 'Payroll Administrator' });
+    VacanciesPage.validateSearchResults({ vacancyName: vacancy });
   })
 
   it('filter by job title - Account Assistant', () => {
+    const jobTitle = 'Account Assistant';
+
     NavigationPanel.clickTab('Recruitment');
     VacanciesPage.clickVacanciesTab();
     VacanciesPage.selectJobTitle('Account Assistant');
     VacanciesPage.clickSearchButton();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ jobTitle: 'Account Assistant' });
+    VacanciesPage.validateSearchResults({ jobTitle: jobTitle });
   })
 
   it('filter by hiring manager - Rahul Patil', () => {
+    const hiringManager = 'Rahul Patil'
     NavigationPanel.clickTab('Recruitment');
     VacanciesPage.clickVacanciesTab();
-    VacanciesPage.selectHiringManager('Rahul Patil');
+    VacanciesPage.selectHiringManager(hiringManager);
     VacanciesPage.clickSearchButton();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ managerName: 'Rahul Patil' });
+    VacanciesPage.validateSearchResults({ managerName: hiringManager });
   })
 
-  it.skip('filter by status - Active', () => {
-    LoginPage.login(Cypress.env('username'), Cypress.env('password'));
+  it('filter by status - Active', () => {
+    const status = 'Active'
+
     NavigationPanel.clickTab('Recruitment');
     VacanciesPage.clickVacanciesTab();
-    VacanciesPage.selectStatus('Active');
+    VacanciesPage.selectStatus(status);
     VacanciesPage.clickSearchButton();
     Wait.forTableLoaderToDisappear();
-    VacanciesPage.validateSearchResults({ status: 'Active' });
+    VacanciesPage.validateSearchResults({ status: status });
   })
 })
