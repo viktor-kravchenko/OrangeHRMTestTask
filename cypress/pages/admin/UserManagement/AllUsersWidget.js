@@ -1,6 +1,7 @@
 import Element from "../../../utils/Element";
 import validate from "../../../utils/validate";
 import wait from "../../../utils/wait";
+import DeleteRecordPopup from "../../popups/DeleteRecordPopup";
 
 class AllUsersWidget {
 
@@ -68,6 +69,16 @@ class AllUsersWidget {
 
     validateUserDoesntExistInTable(username){
         validate.elementNotExist({selector: this.locators.tableRow, text: username})
+    }
+
+    deleteUserIfExist(username){
+        cy.get('body').then(($body) => {
+            const matchingRows = $body.find(this.locators.tableRow + ':contains("' + username + '")');
+            if (matchingRows.length > 0) {
+                this.clickDeleteUser(username);
+                DeleteRecordPopup.confirmDelete();
+            }
+        });
     }
 }
 
