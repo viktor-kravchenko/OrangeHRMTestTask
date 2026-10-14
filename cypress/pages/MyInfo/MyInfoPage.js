@@ -1,5 +1,6 @@
 import Validate from "../../utils/validate";
 import Element from "../../utils/Element";
+import DeleteRecordPopup from "../popups/DeleteRecordPopup";
 
 class MyInfoPage {
     locators = {
@@ -72,6 +73,16 @@ class MyInfoPage {
             parentText: filename,
             selector: this.locators.deleteFileIcon,
         }).click();
+    }
+
+    deleteAttachmentIfExist(filename) {
+        cy.get('body').then(($body) => {
+            const matchingRows = $body.find(this.locators.attachmentTableRow + ':contains("' + filename + '")');
+            if (matchingRows.length > 0) {
+                cy.wrap(matchingRows).find(this.locators.deleteFileIcon).click();
+                DeleteRecordPopup.confirmDelete();
+            }
+        });
     }
 }
 

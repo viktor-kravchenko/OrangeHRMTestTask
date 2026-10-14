@@ -101,6 +101,6 @@ cypress/
 |---|---|---|
 | `login/login.cy.js` | 3 | Correct login, wrong credentials, empty form validation |
 | `dashboard/DashboardWidgetTests.cy.js` | 3 | Widget count, present widgets from CSV, absent widgets from CSV |
-| `admin/userManagement/createUser.cy.js` | 1 | Full CRUD: create → validate → edit → validate → delete → validate |
-| `my-info/MyInfo.cy.js` | 1 | File attachment: add with comment → validate → download & compare → delete → validate |
+| `admin/userManagement/createUser.cy.js` | 3 | Create, edit and delete user |
+| `my-info/MyInfo.cy.js` | 3 | File attachment: add with comment, download & compare, delete |
 | `recruitment/vacancies/VacanciesFilterTest.cy.js` | 4 | Filter by vacancy name, job title, hiring manager, status |

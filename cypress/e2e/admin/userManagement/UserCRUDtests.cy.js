@@ -20,8 +20,6 @@ describe('Create useser tests', () => {
     username = faker.internet.username();
     password = faker.internet.password();
 
-    //employee with this name might not be found due to site data updates.
-    //If employee name cannot be found - change it to new valid employee name
     const employeeName = 'Rahul Das';
     const employeeNameInTable = 'Rahul Das';
     const status = 'Enabled'

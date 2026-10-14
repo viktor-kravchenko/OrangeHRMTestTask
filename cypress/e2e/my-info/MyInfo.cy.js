@@ -7,32 +7,61 @@ import FileUtil from '../../utils/FileUtil';
 import DeleteRecordPopup from '../../pages/popups/DeleteRecordPopup';
 
 describe('My Info attachment tests', () => {
+  const filename = 'test.txt';
+  const filePath = 'cypress/fixtures/test.txt';
+  const downloadPath = `cypress/downloads/${filename}`;
 
   beforeEach(() => {
     cy.visit('index.php');
     LoginPage.loginWithCorrectCredentials()
   });
 
-  it('add, download, and delete attachment', () => {
+  afterEach(() => {
+    NavigationPanel.clickTab("My Info");
+    MyInfoPage.deleteAttachmentIfExist(filename);
+  });
+
+  it('test adding attachment', () => {
     const comment = faker.lorem.sentence();
-    const filename = 'test.txt';
 
     NavigationPanel.clickTab("My Info");
-
     MyInfoPage.clickAddAttachmentButton();
-    MyInfoPage.addAttachment('cypress/fixtures/test.txt');
+    MyInfoPage.addAttachment(filePath);
     MyInfoPage.fillAttachmentComment(comment);
     MyInfoPage.waitForFileToBeAttached(filename)
     MyInfoPage.clickSaveAttachmentButton();
 
     Wait.forTableLoaderToDisappear();
     MyInfoPage.validateAttachmentIsVisibleInTable(filename, comment, 'text/plain');
+  })
 
+  it('test downloading attachment', () => {
+    const comment = faker.lorem.sentence();
+
+    NavigationPanel.clickTab("My Info");
+    MyInfoPage.clickAddAttachmentButton();
+    MyInfoPage.addAttachment(filePath);
+    MyInfoPage.fillAttachmentComment(comment);
+    MyInfoPage.waitForFileToBeAttached(filename);
+    MyInfoPage.clickSaveAttachmentButton();
+
+    Wait.forTableLoaderToDisappear();
     MyInfoPage.downloadAttachment(filename);
-    FileUtil.compareFiles('cypress/fixtures/test.txt', 'cypress/downloads/test.txt');
+    FileUtil.compareFiles(filePath, downloadPath);
+  })
 
+  it('test deleting attachment', () => {
+    const comment = faker.lorem.sentence();
+
+    NavigationPanel.clickTab("My Info");
+    MyInfoPage.clickAddAttachmentButton();
+    MyInfoPage.addAttachment(filePath);
+    MyInfoPage.fillAttachmentComment(comment);
+    MyInfoPage.waitForFileToBeAttached(filename)
+    MyInfoPage.clickSaveAttachmentButton();
+
+    Wait.forTableLoaderToDisappear();
     MyInfoPage.deleteAttachment(filename);
-    
     DeleteRecordPopup.confirmDelete();
     Wait.forTableLoaderToDisappear();
     MyInfoPage.validateAttachmentNotExistInTable(filename);
