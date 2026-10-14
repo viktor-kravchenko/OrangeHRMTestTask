@@ -19,7 +19,7 @@ describe('Create useser tests', () => {
 
   it('create user', () => {
     username = faker.internet.username();
-    password = faker.internet.password();
+    password = faker.internet.password({ prefix: faker.string.numeric(1) });
 
     const employeeName = 'Rahul Das';
     const employeeNameInTable = 'Rahul Das';
@@ -42,7 +42,7 @@ describe('Create useser tests', () => {
 
   it('update user', () => {
     username = faker.internet.username();
-    password = faker.internet.password();
+    password = faker.internet.password({ prefix: faker.string.numeric(1) });
 
     const employeeName = 'Rahul Das';
     const employeeNameInTable = 'Rahul Das';
@@ -76,7 +76,7 @@ describe('Create useser tests', () => {
 
   it('delete user', () => {
     username = faker.internet.username();
-    password = faker.internet.password();
+    password = faker.internet.password({ prefix: faker.string.numeric(1) });
 
     const employeeName = 'Rahul Das';
     const employeeNameInTable = 'Rahul Das';

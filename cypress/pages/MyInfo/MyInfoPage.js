@@ -1,5 +1,6 @@
 import Validate from "../../utils/validate";
 import Element from "../../utils/Element";
+import Wait from "../../utils/wait";
 import DeleteRecordPopup from "../popups/DeleteRecordPopup";
 
 class MyInfoPage {
@@ -9,6 +10,7 @@ class MyInfoPage {
         attachedFileInInput: '.oxd-file-input-div',
         attachmentComment: '.orangehrm-attachment textarea',
         attachmentSaveButton: '.orangehrm-attachment button[type="submit"]',
+        attachmentTable: '.orangehrm-attachment .oxd-table',
         attachmentTableRow: '.orangehrm-attachment .oxd-table-row',
         attachmentDescriptionColumn: '.oxd-table-cell:nth-child(3)',
         attachmentTypecolum: '.oxd-table-cell:nth-child(5)',
@@ -76,11 +78,15 @@ class MyInfoPage {
     }
 
     deleteAttachmentIfExist(filename) {
+        Wait.forElementToBeVisible(this.locators.attachmentTable);
+        Wait.forTableLoaderToDisappear();
         cy.get('body').then(($body) => {
             const matchingRows = $body.find(this.locators.attachmentTableRow + ':contains("' + filename + '")');
             if (matchingRows.length > 0) {
-                cy.wrap(matchingRows).find(this.locators.deleteFileIcon).click();
+                cy.wrap(matchingRows.first()).find(this.locators.deleteFileIcon).click();
                 DeleteRecordPopup.confirmDelete();
+                Wait.forTableLoaderToDisappear();
+                Validate.elementNotExist({ selector: this.locators.attachmentTableRow, text: filename });
             }
         });
     }
