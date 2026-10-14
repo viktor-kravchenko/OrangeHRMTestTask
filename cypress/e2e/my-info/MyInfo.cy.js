@@ -5,6 +5,7 @@ import MyInfoPage from '../../pages/MyInfo/MyInfoPage';
 import Wait from '../../utils/wait';
 import FileUtil from '../../utils/FileUtil';
 import DeleteRecordPopup from '../../pages/popups/DeleteRecordPopup';
+import tabNames from '../../consts/tabNames';
 
 describe('My Info attachment tests', () => {
   const filename = 'test.txt';
@@ -17,14 +18,14 @@ describe('My Info attachment tests', () => {
   });
 
   afterEach(() => {
-    NavigationPanel.clickTab("My Info");
+    NavigationPanel.clickTab(tabNames.MY_INFO);
     MyInfoPage.deleteAttachmentIfExist(filename);
   });
 
   it('test adding attachment', () => {
     const comment = faker.lorem.sentence();
 
-    NavigationPanel.clickTab("My Info");
+    NavigationPanel.clickTab(tabNames.MY_INFO);
     MyInfoPage.clickAddAttachmentButton();
     MyInfoPage.addAttachment(filePath);
     MyInfoPage.fillAttachmentComment(comment);
@@ -38,7 +39,7 @@ describe('My Info attachment tests', () => {
   it('test downloading attachment', () => {
     const comment = faker.lorem.sentence();
 
-    NavigationPanel.clickTab("My Info");
+    NavigationPanel.clickTab(tabNames.MY_INFO);
     MyInfoPage.clickAddAttachmentButton();
     MyInfoPage.addAttachment(filePath);
     MyInfoPage.fillAttachmentComment(comment);
@@ -53,7 +54,7 @@ describe('My Info attachment tests', () => {
   it('test deleting attachment', () => {
     const comment = faker.lorem.sentence();
 
-    NavigationPanel.clickTab("My Info");
+    NavigationPanel.clickTab(tabNames.MY_INFO);
     MyInfoPage.clickAddAttachmentButton();
     MyInfoPage.addAttachment(filePath);
     MyInfoPage.fillAttachmentComment(comment);

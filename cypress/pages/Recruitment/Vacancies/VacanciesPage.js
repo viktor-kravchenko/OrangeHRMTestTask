@@ -53,34 +53,22 @@ class VacanciesPage extends RecruitmentHeader {
     validateSearchResults({jobTitle='', vacancyName='', managerName='', status=''}){
         if (vacancyName) {
             cy.get(this.locators.vacancyNameColumn).each(($el) => {
-                validate.elementHasText({
-                    parentSelector: this.locators.tableRow,
-                    selector: this.locators.vacancyNameColumn,
-                }, vacancyName);
+                cy.wrap($el).should('have.text', vacancyName);
             });
         }
         if (jobTitle) {
             cy.get(this.locators.jobTitleColumn).each(($el) => {
-                validate.elementHasText({
-                    parentSelector: this.locators.tableRow,
-                    selector: this.locators.jobTitleColumn,
-                }, jobTitle);
+                cy.wrap($el).should('have.text', jobTitle);
             });
         }
         if (managerName) {
             cy.get(this.locators.HiringManagerNameColumn).each(($el) => {
-                validate.elementHasText({
-                    parentSelector: this.locators.tableRow,
-                    selector: this.locators.HiringManagerNameColumn,
-                }, managerName);
+                cy.wrap($el).should('have.text', managerName);
             });
         }
         if (status) {
             cy.get(this.locators.statusColumn).each(($el) => {
-                validate.elementHasText({
-                    parentSelector: this.locators.tableRow,
-                    selector: this.locators.statusColumn,
-                }, status);
+                cy.wrap($el).should('have.text', status);
             });
         }
     }

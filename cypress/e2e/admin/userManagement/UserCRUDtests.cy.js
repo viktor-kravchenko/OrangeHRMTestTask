@@ -5,6 +5,7 @@ import AllUsersWidget from '../../../pages/admin/UserManagement/AllUsersWidget';
 import AddUserPage from '../../../pages/admin/UserManagement/AddUserPage';
 import EditUserPage from '../../../pages/admin/UserManagement/EditUserPage';
 import DeleteRecordPopup from '../../../pages/popups/DeleteRecordPopup';
+import tabNames from '../../../consts/tabNames';
 
 describe('Create useser tests', () => {
 
@@ -24,7 +25,7 @@ describe('Create useser tests', () => {
     const employeeNameInTable = 'Rahul Das';
     const status = 'Enabled'
 
-    NavigationPanel.clickTab("Admin");
+    NavigationPanel.clickTab(tabNames.ADMIN);
     AllUsersWidget.clickAddUserButton();
     AddUserPage.waitForformToLoad();
     AddUserPage.fillEmployeeName(employeeName);
@@ -47,7 +48,7 @@ describe('Create useser tests', () => {
     const employeeNameInTable = 'Rahul Das';
     const status = 'Enabled'
 
-    NavigationPanel.clickTab("Admin");
+    NavigationPanel.clickTab(tabNames.ADMIN);
     AllUsersWidget.clickAddUserButton();
     AddUserPage.waitForformToLoad();
     AddUserPage.fillEmployeeName(employeeName);
@@ -81,7 +82,7 @@ describe('Create useser tests', () => {
     const employeeNameInTable = 'Rahul Das';
     const status = 'Enabled'
 
-    NavigationPanel.clickTab("Admin");
+    NavigationPanel.clickTab(tabNames.ADMIN);
     AllUsersWidget.clickAddUserButton();
     AddUserPage.waitForformToLoad();
     AddUserPage.fillEmployeeName(employeeName);
@@ -101,7 +102,7 @@ describe('Create useser tests', () => {
   })
 
   afterEach(() => {
-    NavigationPanel.clickTab("Admin");
+    NavigationPanel.clickTab(tabNames.ADMIN);
     AllUsersWidget.deleteUserIfExist(username);
   });
 })

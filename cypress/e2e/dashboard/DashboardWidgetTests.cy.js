@@ -3,6 +3,7 @@ import NavigationPanel from '../../pages/components/NavigationPanel';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
 import Validate from '../../utils/validate';
 import FileUtil from '../../utils/FileUtil';
+import tabNames from '../../consts/tabNames';
 
 describe('Dashboard widget tests', () => {
 
@@ -12,12 +13,12 @@ describe('Dashboard widget tests', () => {
   });
 
   it('validate there are at least 2 widgets on the page', () => {
-    NavigationPanel.clickTab('Dashboard');
+    NavigationPanel.clickTab(tabNames.DASHBOARD);
     Validate.elementCountIsAtLeast({selector: DashboardPage.locators.dashboardWidget}, 2);
   })
 
   it('validate each widget from presentDashboardWidgets.csv are visible on the page', () => {
-    NavigationPanel.clickTab('Dashboard');
+    NavigationPanel.clickTab(tabNames.DASHBOARD);
     FileUtil.readCsv('cypress/fixtures/presentDashboardWidgets.csv').then((widgets) => {
       widgets.forEach((widget) => {
         DashboardPage.validateWidgetIsVisible(widget);
@@ -26,7 +27,7 @@ describe('Dashboard widget tests', () => {
   })
 
   it('validate each widget from absentDashboardWidgets.csv are absent on the page', () => {
-    NavigationPanel.clickTab('Dashboard');
+    NavigationPanel.clickTab(tabNames.DASHBOARD);
     FileUtil.readCsv('cypress/fixtures/absentDashboardWidgets.csv').then((widgets) => {
       widgets.forEach((widget) => {
         DashboardPage.validateWidgetIsNotVisible(widget);
