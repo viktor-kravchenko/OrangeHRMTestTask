@@ -1,0 +1,17 @@
+{
+  "name": "orangehrm",
+  "version": "1.0.0",
+  "description": "test task",
+  "license": "MIT",
+  "author": "Viktor Kravchenko",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "cypress": "^16.1.1",
+    "dotenv": "^18.0.7"
+  }
+}
