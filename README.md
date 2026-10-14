@@ -47,6 +47,7 @@ npx cypress run --spec "cypress/e2e/login/login.cy.js"
 
 ```
 cypress/
+├── consts                        # Constant values for tests
 ├── e2e/                          # Test files
 │   ├── login/                    # Login flow tests
 │   │   └── login.cy.js           

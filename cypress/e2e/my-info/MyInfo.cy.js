@@ -12,6 +12,10 @@ describe('My Info attachment tests', () => {
   const filePath = 'cypress/fixtures/test.txt';
   const downloadPath = `cypress/downloads/${filename}`;
 
+  before(() => {
+    cy.task('cleanDownloads');
+  });
+
   beforeEach(() => {
     cy.visit('index.php');
     LoginPage.loginWithCorrectCredentials()
